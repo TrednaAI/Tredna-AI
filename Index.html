@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="description"
+      content="Tredna AI - AI-Driven Wallet Tracker for Solana Blockchain Coins"/>
+    <meta
+      name="keywords"
+      content="Tredna AI - AI-Driven Wallet Tracker"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tredna AI - AI-Driven Wallet Tracker</title>
+    <!-- Font Awesome Icons (Optional) -->
+    <script
+      src="https://kit.fontawesome.com/a076d05399.js"
+      crossorigin="anonymous"
+    ></script>
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* --- Base Reset / Global Styles --- */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        font-family: "Nunito Sans", sans-serif;
+        background: linear-gradient(135deg, #E6E8E5, #E6E8E5);
+        color: #333;
+        scroll-behavior: smooth;
+      }
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+
+      /* --- HEADER / NAVBAR --- */
+      .header {
+        background-color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.8rem 1.5rem;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        background-image: url('image1.png');
+      }
+      .header .logo img {
+        max-width: 90px;
+        height: auto;
+      }
+
+      /* BLACK BUTTON (top-right) */
+      .open-menu-btn {
+        display: inline-block;
+        font-size: 1rem;
+        font-weight: 600;
+        color: #fff;
+        padding: 0.8rem 1.5rem;
+        border: none;
+        border-radius: 50px;
+        cursor: pointer;
+        background-color: #000;
+        position: relative;
+        overflow: hidden;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      .open-menu-btn::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -50%;
+        width: 50%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.2);
+        transform: skewX(-20deg);
+        transition: left 0.5s ease;
+      }
+      .open-menu-btn:hover::before {
+        left: 120%;
+      }
+      .open-menu-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      }
+
+      /* MOBILE MENU & OVERLAY */
+      .mobile-menu-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.4);
+        z-index: 9998;
+      }
+      .mobile-menu-overlay.open {
+        display: block;
+      }
+      .mobile-menu {
+        display: flex;
+        flex-direction: column;
+        padding: 1.5rem 1rem;
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 220px;
+        height: 100vh;
+        background-color: #fff;
+        box-shadow: -2px 0 12px rgba(0, 0, 0, 0.2);
+        transform: translateX(100%);
+        transition: transform 0.3s ease-out;
+        z-index: 9999;
+      }
+      .mobile-menu.open {
+        transform: translateX(0);
+      }
+      .btn-with-bubble {
+        position: relative;
+        display: inline-block;
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: #fff;
+        padding: 0.6rem 1.2rem;
+        margin-bottom: 1rem;
+        border: none;
+        border-radius: 25px;
+        cursor: pointer;
+        background: linear-gradient(135deg, #3f4a5d, #3f4a5d);
+        box-shadow: 0 4px 12px rgba(0, 165, 163, 0.4);
+        transition: transform 0.3s ease, box-shadow 0.3s ease,
+          background 0.3s ease;
+        width: 100%;
+        text-align: center;
+      }
+      .btn-with-bubble:hover {
+        transform: translateY(-2px);
+        background: linear-gradient(135deg, #3f4a5d, #3f4a5d);
+        box-shadow: 0 6px 20px rgba(0, 165, 163, 0.6);
+      }
+      .btn-with-bubble .bubble {
+        position: absolute;
+        top: -8px;
+        right: -8px;
+        background: linear-gradient(135deg, #3f4a5d, #3f4a5d);
+        color: #fff;
+        font-size: 0.6rem;
+        font-weight: 700;
+        padding: 0.2rem 0.5rem;
+        border-radius: 16px;
+        box-shadow: 0 2px 6px rgba(0, 165, 163, 0.4);
+        transform: rotate(-10deg);
+      }
+
+      /* HERO */
+      .hero {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 2rem 1rem;
+        background: linear-gradient(135deg, #eeeeee, #eeeeee);
+        background-image: url('image2.png');
+      }
+      .hero h1 {
+        font-size: 2.2rem;
+        margin-bottom: 1rem;
+        font-weight: 700;
+        color: #222;
+        margin-top: 1rem;
+        margin-bottom: 2rem;
+      }
+      .hero p {
+        font-size: 1.1rem;
+        line-height: 1.6;
+        max-width: 1000px;
+        margin: 0 auto 1.5rem auto;
+        color: #555;
+      }
+      .ca-hero-wrapper {
+        margin-bottom: 1.5rem;
+      }
+      .ca-terminal-header {
+        background-color: #f2f2f2;
+        color: rgb(33, 33, 33);
+        font-family: "Courier New", monospace;
+        font-size: 0.95rem;
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        cursor: pointer;
+        transition: transform 0.3s ease;
+        text-align: center;
+        max-width: 100%;
+        margin-top: 1rem;
+      }
+      .ca-terminal-header:hover {
+        transform: scale(1.02);
+      }
+
+      /* PROGRESS BAR (25%), text inside = white */
+      .progress-container {
+        margin: 1rem auto 0.5rem;
+        width: 300px;
+        max-width: 80%;
+        height: 25px;
+        background: #ccc;
+        border-radius: 10px;
+        overflow: hidden;
+        position: relative;
+      }
+      .progress {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 25%;
+        height: 100%;
+        background: linear-gradient(135deg, #3f4a5d, #3f4a5d);
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .progress::after {
+        content: "25%";
+        color: #fff;
+        font-weight: 700;
+        font-size: 0.85rem;
+      }
+      @keyframes shiny {
+        0% {
+          left: -50px;
+        }
+        100% {
+          left: 100%;
+        }
+      }
+      .progress::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -50px;
+        width: 50px;
+        height: 100%;
+        background: linear-gradient(
+          to right,
+          rgba(255, 255, 255, 0.2),
+          rgba(255, 255, 255, 0.5),
+          rgba(255, 255, 255, 0.2)
+        );
+        animation: shiny 2s infinite linear;
+      }
+      .progress-title {
+        font-size: 1rem;
+        margin-top: 0.5rem;
+        font-weight: 600;
+        color: #444;
+      }
+
+      /* PROGRESS STEPS (bubble for 25%: Roadmap fully green) */
+      
+      
+      
+      .progress-steps {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        list-style: none;
+        padding: 0;
+        margin-top: 1rem;
+        gap: 1rem;
+      }
+      .progress-steps li {
+        background-color: #fff;
+        border-radius: 20px;
+        padding: 0.4rem 0.8rem;
+        font-size: 0.9rem;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      
+      .progress-steps li:first-child {
+        background: #3f4a5d;
+        color: #fff;
+        border: none;
+        font-weight: 700;
+      }
+
+      /* SECTION */
+      .section {
+        padding: 2rem 1rem;
+        max-width: 1100px;
+        margin: 0 auto;
+        text-align: center;
+      }
+      .section h2 {
+        font-size: 1.8rem;
+        margin-bottom: 1rem;
+        font-weight: 700;
+        color: #222;
+      }
+      .section p {
+        font-size: 1rem;
+        line-height: 1.6;
+        color: #555;
+        margin-bottom: 1rem;
+        max-width: 900px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .section ul {
+        list-style-type: disc;
+        margin: 1rem auto;
+        padding-left: 1.5rem;
+        display: inline-block;
+        text-align: left;
+      }
+      .section li {
+        margin-bottom: 0.5rem;
+      }
+
+      /* FOOTER */
+      .footer {
+        background-color: #fff;
+        text-align: center;
+        padding: 1rem;
+        font-size: 0.9rem;
+        color: #666;
+        box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+      }
+      .footer a {
+        color: #00a5a3;
+        text-decoration: none;
+        font-weight: 600;
+        margin: 0 0.5rem;
+        transition: color 0.3s ease;
+      }
+      .footer a:hover {
+        color: #008d8b;
+      }
+
+      /* SHINY BLACK BUTTONS */
+      .black-buttons-container {
+        display: flex;
+        justify-content: center;
+        gap: 1.5rem;
+        flex-wrap: wrap;
+        margin-top: 2rem;
+      }
+      .black-btn {
+        display: inline-block;
+        background-color: #000;
+        color: #fff;
+        font-size: 1rem;
+        padding: 0.8rem 1.5rem;
+        border-radius: 50px;
+        cursor: pointer;
+        font-weight: 600;
+        position: relative;
+        overflow: hidden;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      .black-btn::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -50%;
+        width: 50%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.2);
+        transform: skewX(-20deg);
+        transition: left 0.5s ease;
+      }
+      .black-btn:hover::before {
+        left: 120%;
+      }
+      .black-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      }
+
+      /* Simple separator */
+      .separator {
+        width: 50%;
+        margin: 2rem auto 2rem auto;
+        border: 0;
+        height: 1px;
+        background-color: #ccc;
+      }
+
+      /* MODALS */
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 10000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+      }
+      .modal-content {
+        background-color: #fff;
+        margin: 5% auto;
+        padding: 2rem;
+        width: 90%;
+        max-width: 600px;
+        border-radius: 8px;
+        text-align: left;
+        position: relative;
+        max-height: 80vh;
+        overflow-y: auto;
+      }
+      .modal-content .close {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        font-size: 1.5rem;
+        color: #aaa;
+        cursor: pointer;
+      }
+      .modal-content i {
+        font-size: 2rem;
+        color: #2d2d2d;
+        margin-bottom: 1rem;
+      }
+      .modal-content h2 {
+        margin-bottom: 1rem;
+      }
+      .modal-content p,
+      .modal-content strong {
+        margin-bottom: 1rem;
+        line-height: 1.5;
+      }
+
+      /* ACCORDION STYLES */
+      .accordion {
+        margin-top: 1rem;
+      }
+      .accordion-item {
+        border-bottom: 1px solid #ddd;
+        padding: 0.5rem 0;
+      }
+      .accordion-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+      }
+      .accordion-header h3 {
+        font-size: 1rem;
+        color: #008d8b;
+        margin: 0;
+      }
+      .accordion-header i {
+        transition: transform 0.3s ease;
+      }
+      .accordion-header i.rotate {
+        transform: rotate(180deg);
+      }
+      .accordion-content {
+        display: none;
+        margin-top: 0.5rem;
+        line-height: 1.5;
+      }
+      .accordion-content.active {
+        display: block;
+      }
+
+      .progression {
+        font-size: 2 rem;
+        margin-bottom: 1rem;
+        font-weight: 700;
+        color: #222;
+        margin-top: 1rem;
+        margin-bottom: 2rem;
+      }
+
+      /* --- RESPONSIVE ADJUSTMENTS FOR MOBILE --- */
+      @media (max-width: 768px) {
+        /* CA console smaller on mobile */
+        .ca-terminal-header {
+          font-size: 0.8rem;
+          padding: 0.4rem 0.8rem;
+          max-width: 360px;
+          margin: 0.5rem auto;
+        }
+        /* Menu buttons smaller on mobile */
+        .btn-with-bubble {
+          font-size: 0.8rem;
+          padding: 0.5rem 1rem;
+        }
+        .open-menu-btn {
+          font-size: 0.8rem;
+          padding: 0.6rem 1rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- HEADER -->
+    <div class="header">
+      
+      <h3>Tredna AI</h3>
+
+      <div class="ca-hero-wrapper">
+        <div
+          class="ca-terminal-header"
+          title="Click to copy Contract Address"
+          onclick="copyAddress()">
+          
+          <strong>Ticker:</strong>
+          <span id="contract-address"
+            >$TREDNAAI</span>
+        </div>
+      </div>
+      
+      <!-- Black "Menu" Button -->
+      <button class="open-menu-btn" onclick="toggleMobileMenu()">Open</button>
+    </div>
+
+    <!-- OVERLAY -->
+    <div
+      class="mobile-menu-overlay"
+      id="mobileMenuOverlay"
+      onclick="closeMobileMenu()"
+    ></div>
+
+    <!-- MOBILE MENU -->
+    <div class="mobile-menu" id="mobileMenu">
+      <button class="btn-with-bubble" onclick="toggleModal('roadmapModal')">
+        Roadmap
+        <div class="bubble">New</div>
+      </button>
+      <button class="btn-with-bubble" onclick="toggleModal('demoModal')">
+        Demo
+        <div class="bubble">Soon</div>
+      </button>
+    </div>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+      <h1>Tredna AI: Worlds First AI-Based Wallet Tracker</h1>
+      <p>
+        Tredna AI features an <strong>advanced, AI-driven wallet tracker</strong> 
+        designed specifically for Solana coins. Tredna AI monitors and analyzes trends, 
+        market sentiment, and user engagement across various Solana-based tokens 
+        and sucessful PNL wallets. By providing real-time insights into social activity, 
+        volume, and sentiment, Tredna AI helps investors, traders, and enthusiasts make 
+        informed decisions in the fast-paced world of meme coin investments. 
+        Whether tracking the rise of a new token or gauging the performance of existing ones, 
+        Tredna AI offers powerful analytics to stay ahead in the Solana ecosystem.
+      </p>
+    </section>
+
+    <!-- CORE IDEA & KEY FEATURES -->
+    <section class="section">
+      <h2>Core Idea</h2>
+      <p>
+        Tredna AI employs cutting-edge technology to analyze engagement patterns and wallet 
+        activity, offering invaluable insights into cryptocurrency markets. By leveraging machine 
+        learning and blockchain analytics, Tredna AI identifies trends that signal 
+        potential profitability or risk. By combining advanced engagement analytics with wallet behavior 
+        tracking, Tredna AI empowers investors to make data-driven decisions. This proactive approach minimizes 
+        risk while identifying high-potential assets, setting a new standard in cryptocurrency investment intelligence.
+      </p>
+      <h2>Key Features</h2>
+      <ul>
+        <li>
+          <Strong>Accurate Predictions:</Strong> Powered by machine learning, Tredna AI delivers real-time insights.
+          </li>
+          <li>
+          <Strong>Risk Detections:</Strong> Stay ahead of potential rugpulls and fraudulent coins.
+          </li>
+          <li>
+          <Strong>User-Friendly Interface:</Strong> Access clear, actionable data without needing technical expertise.
+        </li>
+      </ul>
+    </section>
+
+    <!-- TOUTORIAL SECTION -->
+    <section class="section">
+      <h2>How Tredna AI Works</h2>
+      <p>
+        Tredna AI simplifies cryptocurrency investing by using advanced algorithms to analyze market trends, 
+        social engagement, and wallet activity. Our system identifies coins with high potential while flagging 
+        those with higher risks. Whether you’re new to crypto or an experienced investor, Tredna AI provides the 
+        insights you need to make informed decisions.
+      </p>
+    </section>
+
+    <!-- WHY CHOOSE SECTION -->
+    <section class="section">
+      <h2>Why Choose Tredna AI?</h2>
+      <ul>
+        <li>
+          <strong>Tracking Engagement:</strong> Tredna AI monitors social media platforms, 
+          forums, and other digital spaces for real-time discussions and sentiment analysis. 
+          By assessing the volume, tone, and velocity of engagement around specific cryptocurrencies, 
+          Tredna AI identifies coins with growing interest and potential market momentum. The system 
+          distinguishes between organic interest and artificially inflated hype, ensuring investors focus 
+          on legitimate opportunities.
+        </li>
+        <li>
+          <strong>Analyzing Wallet Activit:</strong> Through blockchain data, Tredna AI tracks wallet transactions 
+          to identify patterns associated with profitable investments. This includes observing accumulation phases, 
+          high-value transfers, and holding behaviors of influential wallets. By correlating this data with market 
+          trends, Tredna AI determines which coins are likely to yield substantial returns.
+        </li>
+        <li>
+          <strong>Detecting Rugpull Risks:</strong> Tredna AI employs a rigorous assessment framework to flag potential 
+          rugpulls. This involves monitoring suspicious wallet movements, such as the sudden liquidation of large 
+          holdings or significant token transfers by developer wallets. Additionally, the system cross-references 
+          engagement metrics with wallet activity to detect discrepancies that often precede fraudulent schemes.
+        </li>
+      </ul>
+    </section>
+
+    <section class="progression">
+          <!-- Progress Bar (25%) with white text inside -->
+          <center><h1>Progression</h1></center>
+          <div class="progress-container">
+            <div class="progress"></div>
+          </div>
+          <!-- 25% bubble fully green -->
+          <ul class="progress-steps">
+            <li>25%: Demo</li>
+            <li>50%: Beta Release</li>
+            <li>75%: Beta Revision</li>
+            <li>100%: Tredna AI Release</li>
+          </ul>
+
+    </section>
+
+    <hr class="separator" />
+
+    <h2 style="text-align: center; margin-bottom: 1rem">Links</h2>
+    <section class="section">
+      <div class="black-buttons-container">
+        <a
+          href="https://x.com/TrednaAI"
+          class="black-btn"
+          target="_blank"
+          rel="noopener"
+        >
+          Twitter
+        </a>
+        <a
+          href="https://t.me/+swUddrINQSlhYTRh"
+          class="black-btn"
+          target="_blank"
+          rel="noopener"
+        >
+          Telegram
+        </a>
+        <button
+          class="black-btn"
+          onclick="toggleModal('githubModal')"
+          style="border: none"
+        >
+          Pump.fun
+        </button>
+        <a
+          href="https://dexscreener.com/solana/41fycdhhyvhlslxzmu3k2zfwnnvgblnpmfu1zjwowcxz"
+          class="black-btn"
+          target="_blank"
+          rel="noopener"
+        >
+          DexScreener
+        </a>
+      </div>
+    </section>
+
+
+
+
+
+
+    <div class="footer">
+      © Tredna AI 2025
+      <br />
+    </div>
+
+    <!-- ROADMAP MODAL (with ACCORDION) -->
+    <div id="roadmapModal" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="toggleModal('roadmapModal')">&times;</span>
+        <h2>Tredna AI Roadmap</h2>
+        <div class="accordion">
+          <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+              <h3>Phase 1: Token Launch</h3>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="accordion-content">
+              <p>
+                <strong>Objective:</strong> Successfully launch the token on a blockchain platform.
+              </p>
+              <p>
+                <strong>Plan:</strong>
+              </p>
+              <p>
+                • Finalize tokenomics (supply, distribution, allocation).<br />
+                • Choose a blockchain network (Solana).<br />
+                • Develop smart contracts for token deployment.<br />
+                • Launch the token on exchanges for trading.
+              </p>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+              <h3>Phase 2: Community Growth</h3>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="accordion-content">
+              <p>
+                <strong>Objective:</strong> Build a strong, engaged community around the token.
+              </p>
+              <p>
+                <strong>Plan:</strong>
+              </p>
+              <p>
+                • Establish social media presence (Twitter, Discord, Telegram, etc.).<br />
+                • Host AMAs (Ask Me Anything) to connect with the community.<br />
+                • Launch community-driven initiatives (e.g., staking, governance).<br />
+                • Collaborate with influencers and partners for promotions.<br />
+                • Implement regular updates and feedback loops with the community.
+              </p>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+              <h3>Phase 3: Software Completion</h3>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="accordion-content">
+              <p>
+                <strong>Objective:</strong> Develop and release necessary software and tools for the ecosystem.
+              </p>
+              <p>
+                <strong>Plan:</strong>
+              </p>
+              <p>
+                • Design and develop web and mobile wallets for token storage.<br />
+                • Build decentralized applications (dApps) integrating the token.<br />
+                • Develop APIs for external integrations and partnerships.<br />
+                • Conduct security audits and testing to ensure a robust platform.<br />
+                • Launch stable versions of all necessary software for user access.
+              </p>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+
+    <!-- DEMO MODAL -->
+    <div id="demoModal" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="toggleModal('demoModal')">&times;</span>
+        <i class="fas fa-cog fa-spin"></i>
+        <p>Demo is soon to come!</p>
+      </div>
+    </div>
+
+    <!-- GITHUB MODAL -->
+    <div id="githubModal" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="toggleModal('githubModal')">&times;</span>
+        <i class="fas fa-cog fa-spin"></i>
+        <p>This feature is not available yet!</p>
+      </div>
+    </div>
+
+    <script>
+      function toggleModal(modalId) {
+        const modal = document.getElementById(modalId);
+        if (modal.style.display === "block") {
+          modal.style.display = "none";
+        } else {
+          modal.style.display = "block";
+        }
+      }
+
+      function copyAddress() {
+        const address = document.getElementById("contract-address").innerText;
+        navigator.clipboard.writeText(address).then(() => {
+          alert("Ticker Copied!");
+        });
+      }
+      function copyAddressMobile() {
+        const addressMobile = document.getElementById(
+          "contract-address-mobile"
+        ).innerText;
+        navigator.clipboard.writeText(addressMobile).then(() => {
+          alert("Contract Address Copied!");
+        });
+      }
+
+      function toggleMobileMenu() {
+        const menu = document.getElementById("mobileMenu");
+        const overlay = document.getElementById("mobileMenuOverlay");
+        const isOpen = menu.classList.contains("open");
+        if (isOpen) {
+          menu.classList.remove("open");
+          overlay.classList.remove("open");
+        } else {
+          menu.classList.add("open");
+          overlay.classList.add("open");
+        }
+      }
+      function closeMobileMenu() {
+        document.getElementById("mobileMenu").classList.remove("open");
+        document.getElementById("mobileMenuOverlay").classList.remove("open");
+      }
+      function toggleAccordion(header) {
+        const content = header.nextElementSibling;
+        const icon = header.querySelector("i");
+        content.classList.toggle("active");
+        icon.classList.toggle("rotate");
+      }
+    </script>
+    <!-- Code injected by live-server -->
+    <script>
+      // <![CDATA[  <-- For SVG support
+      if ("WebSocket" in window) {
+        (function () {
+          function refreshCSS() {
+            var sheets = [].slice.call(document.getElementsByTagName("link"));
+            var head = document.getElementsByTagName("head")[0];
+            for (var i = 0; i < sheets.length; ++i) {
+              var elem = sheets[i];
+              var parent = elem.parentElement || head;
+              parent.removeChild(elem);
+              var rel = elem.rel;
+              if (
+                (elem.href && typeof rel != "string") ||
+                rel.length == 0 ||
+                rel.toLowerCase() == "stylesheet"
+              ) {
+                var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, "");
+                elem.href =
+                  url +
+                  (url.indexOf("?") >= 0 ? "&" : "?") +
+                  "_cacheOverride=" +
+                  new Date().valueOf();
+              }
+              parent.appendChild(elem);
+            }
+          }
+          var protocol =
+            window.location.protocol === "http:" ? "ws://" : "wss://";
+          var address =
+            protocol + window.location.host + window.location.pathname + "/ws";
+          var socket = new WebSocket(address);
+          socket.onmessage = function (msg) {
+            if (msg.data == "reload") window.location.reload();
+            else if (msg.data == "refreshcss") refreshCSS();
+          };
+          if (
+            sessionStorage &&
+            !sessionStorage.getItem("IsThisFirstTime_Log_From_LiveServer")
+          ) {
+            console.log("Live reload enabled.");
+            sessionStorage.setItem("IsThisFirstTime_Log_From_LiveServer", true);
+          }
+        })();
+      } else {
+        console.error(
+          "Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading."
+        );
+      }
+      // ]]>
+    </script>
+  </body>
+</html>
